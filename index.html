@@ -1,0 +1,56 @@
+<html ng-app="addPatient">
+	<head>
+		<link rel="stylesheet" type="text/css" href="/index.css">
+		<script src = "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<script src = "/main.js"></script>
+		<script src = "/personalDetails.js"></script>
+		<script src = "/diagnosisDetails.js"></script>
+	</head>
+	<body>
+		<div id = "personalDetails_main" ng-controller = "personalDetails as pd">
+			<span>
+				<label>Date: </label><input type="text" ng-model="pd.date"/>
+				<label>Patient UID: </label><input type="text" ng-model="pd.UID" disabled/>
+			</span>
+			<span>
+				<label>First Name: </label><input type="text" ng-model="pd.firstName"/>
+				<label>Last Name: </label><input type="text" ng-model="pd.lastName"/>
+			</span>
+			<span>
+				<label>Phone Number: </label><input type="text" ng-model="pd.phoneNumber"/>
+				<label>Age: </label><input class="small-input" type="text" ng-model="pd.age"/>
+				<label>Sex: </label><input class="small-input" type="text" ng-model="pd.sex"/>
+			</span>
+			<span>
+				<label>Address Line 1: </label><input type="text" ng-model="pd.addressLine1"/>
+			</span>
+			<span>
+				<label>Address Line 2: </label><input type="text" ng-model="pd.addressLine2"/>
+			</span>
+			<span>
+				<label>City: </label><input type="text" ng-model="pd.city"/>
+				<label>State: </label><input type="text" ng-model="pd.state"/>
+				<label>Pin Code: </label><input type="text" ng-model="pd.pincode"/>
+			</span>
+		</div>
+		<div id = "diagnosisDetails_main" ng-controller = "diagnosisDetails as dd">
+			<span>
+				<label>Symptoms: </label><textarea ng-model="dd.symptoms"></textarea>
+			</span>
+			<span>
+				<label>Examinations: </label><textarea ng-model="dd.examinations"></textarea>
+			</span>
+			<span>
+				<label>Applied Procedures: </label><textarea ng-model="dd.appliedProcedures"></textarea>
+			</span>
+			<span>
+				<label>Medications Assigned: </label>
+				<span class="inline-fields">
+					<input class="medication-name" type="text" ng-model="dd.medicationName"/>
+					<input class="medication-dose" type="text" ng-model="dd.medicationDosage"/>
+					<button class="medication-add-button" type="button" addbuttonclick>+</button>
+				</span>
+		</div>
+	</body>
+</html>

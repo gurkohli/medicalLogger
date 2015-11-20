@@ -1,0 +1,1 @@
+var addPatient = angular.module('addPatient', []);
