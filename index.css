@@ -77,7 +77,8 @@ body {
 	margin: 0px 10px 0px 5px;
 }
 
-#diagnosisDetails_main .medication-add-button {
+#diagnosisDetails_main .medication-add-button, .medication-remove-button {
 	height: 25px;
-	width: 25px;
+	min-width: 25px;
+	max-width: 25px;
 }
