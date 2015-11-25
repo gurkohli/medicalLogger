@@ -2,13 +2,56 @@ body {
 	width: 95%;
 }
 
-#personalDetails_main {
+.hidden {
+	display: none !important;
+}
+
+.border_main_panel {
+	border: black;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 20px;
+}
+
+.overlay {
+	opacity: 0.2;
+	z-index: 10;
+	position: fixed;
+}
+
+.header_label {
+	font-size: 20px;
+	padding: 0px 0px 5px 5px !important;
+	display: block;
+}
+
+.submit_button {
+	margin: 5px;
+	padding: 5px;
+}
+
+#addDiagnosisPrompt {
+	width: 100%;
+	display: inline-block;
+	padding: 10px;
+}
+
+#addDiagnosisPrompt span{
+	float: left;
+	clear: left;
+	width: 100%;
+	display: flex;
+	white-space: nowrap;
+	padding: 2px;
+}
+
+#personalDetails_main, #summary_main {
 	padding: 10px;
 	display: inline-block;
 	width: 100%;
 }
 
-#personalDetails_main span {
+#personalDetails_main span, #summary_body_personalDetails span {
 	float: left;
 	clear: left;
 	width: 100%;
@@ -23,7 +66,7 @@ body {
 	padding: 2px;
 }
 
-#personalDetails_main label {
+#personalDetails_main label, #summary_body_personalDetails label {
 	padding: 2px 5px 2px 5px;
 }
 
@@ -81,4 +124,12 @@ body {
 	height: 25px;
 	min-width: 25px;
 	max-width: 25px;
+}
+
+#summary_body_personalDetails label {
+	width: inherit;
+}
+
+#summary_body_personalDetails .small-input {
+	max-width: 25% !important;
 }

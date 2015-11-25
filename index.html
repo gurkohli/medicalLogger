@@ -2,54 +2,75 @@
 	<head>
 		<link rel="stylesheet" type="text/css" href="/index.css">
 		<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+		<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.js"></script>
 		<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>-->
 		<script src = "/main.js"></script>
 		<script src = "/personalDetails.js"></script>
 		<script src = "/diagnosisDetails.js"></script>
+		<script src = "/summary.js"></script>
 	</head>
 	<body ng-app="addPatient" class="ng-scope">
-		<div id = "personalDetails_main" ng-controller = "personalDetails as pd">
-			<span>
-				<label>Date: </label><input type="text" ng-model="pd.date"/>
-				<label>Patient UID: </label><input type="text" ng-model="pd.UID" disabled/>
-			</span>
-			<span>
-				<label>First Name: </label><input type="text" ng-model="pd.firstName"/>
-				<label>Last Name: </label><input type="text" ng-model="pd.lastName"/>
-			</span>
-			<span>
-				<label>Phone Number: </label><input type="text" ng-model="pd.phoneNumber"/>
-				<label>Age: </label><input class="small-input" type="text" ng-model="pd.age"/>
-				<label>Sex: </label><input class="small-input" type="text" ng-model="pd.sex"/>
-			</span>
-			<span>
-				<label>Address Line 1: </label><input type="text" ng-model="pd.addressLine1"/>
-			</span>
-			<span>
-				<label>Address Line 2: </label><input type="text" ng-model="pd.addressLine2"/>
-			</span>
-			<span>
-				<label>City: </label><input type="text" ng-model="pd.city"/>
-				<label>State: </label><input type="text" ng-model="pd.state"/>
-				<label>Pin Code: </label><input type="text" ng-model="pd.pincode"/>
-			</span>
-		</div>
-		<div id = "diagnosisDetails_main" ng-controller = "diagnosisDetails as dd">
-			<span>
-				<label>Symptoms: </label><textarea ng-model="dd.symptoms"></textarea>
-			</span>
-			<span>
-				<label>Examinations: </label><textarea ng-model="dd.examinations"></textarea>
-			</span>
-			<span>
-				<label>Applied Procedures: </label><textarea ng-model="dd.appliedProcedures"></textarea>
-			</span>
-			<span>
-				<label>Medications Assigned: </label>
-				<div id="medicationsField">
-					<medicationsfield></medicationsfield>
+		<div id = "main_content">
+			<div id = "personalDetails_main" class = "border_main_panel" ng-controller = "personalDetails as pd">
+				<label id = "personalDetails_label" class = "header_label">Personal Details: </label>
+				<div id = "personalDetails_form">
+					<span>
+						<label>Date: </label><input type="text" ng-model="pd.model.date"/>
+						<label>Patient UID: </label><input type="text" ng-model="pd.model.UID" disabled/>
+					</span>
+					<span>
+						<label>First Name: </label><input type="text" ng-model="model.firstName"/>
+						<label>Last Name: </label><input type="text" ng-model="model.lastName"/>
+					</span>
+					<span>
+						<label>Phone Number: </label><input type="text" ng-model="model.phoneNumber"/>
+						<label>Age: </label><input class="small-input" type="text" ng-model="model.age"/>
+						<label>Sex: </label><input class="small-input" type="text" ng-model="model.sex"/>
+					</span>
+					<span>
+						<label>Address Line 1: </label><input type="text" ng-model="model.addressLine1"/>
+					</span>
+					<span>
+						<label>Address Line 2: </label><input type="text" ng-model="model.addressLine2"/>
+					</span>
+					<span>
+						<label>City: </label><input type="text" ng-model="model.city"/>
+						<label>State: </label><input type="text" ng-model="model.state"/>
+						<label>Pin Code: </label><input type="text" ng-model="model.pincode"/>
+					</span>
+					<button id="personalDetails_submit" class="add_patient_submit_button" submitpdbutton>Submit</button>
 				</div>
-			</span>
+			</div>
+			<div id = "diagnosisDetails_main" class="border_main_panel" ng-controller = "diagnosisDetails as dd">
+				<label id = "diagnosisDetails_label" class = "header_label">Diagnosis Details: </label>
+				<div id = "diagnosisDetails_form" class="hidden">
+					<span>
+						<label>Symptoms: </label><textarea ng-model="dd.symptoms"></textarea>
+					</span>
+					<span>
+						<label>Examinations: </label><textarea ng-model="dd.examinations"></textarea>
+					</span>
+					<span>
+						<label>Applied Procedures: </label><textarea ng-model="dd.appliedProcedures"></textarea>
+					</span>
+					<span>
+						<label>Medications Assigned: </label>
+						<div id="medicationsFieldContainer" count={{dd.medicationCount}}>
+							<medicationsfield class="ng-scope" id="field_1"></medicationsfield>
+						</div>
+					</span>
+					<button id="diagnosisDetails_submit" class="submit_button" submitddbutton>Submit</button>
+				</div>
+			</div>
+			<div id = "summary_main" class="border_main_panel" ng-controller = "summary">
+				<label class ="header_label">Summary: </label>
+			</div>
+		</div>
+		<div id = "overlay_content" class="popup">
+			<div id = "addDiagnosisPrompt" class="border_main_panel">
+				<label class = "header_label">Add Diagnosis?</label>
+				<span class = "prompt_message">Do you wish to add another Diagnosis?</span>
+			</div>
 		</div>
 	</body>
 </html>

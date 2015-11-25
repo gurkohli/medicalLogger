@@ -2,13 +2,14 @@ addPatient.controller("diagnosisDetails", ddController);
 
 function ddController($scope) {
 	this.symptoms = "Works Bro";
-	this.examinations = "UNIQUE"
+	this.examinations = "Works Bro"
 	this.appliedProcedures = "Works Bro";
 	this.medicationName = "Works Bro";
 	this.medicationDosage = "Works Bro";
 
 	this.medications = {};
 	this.medications[this.medicationName] = this.medicationDosage;
+	this.medicationCount = 1;
 }
 ddController.prototype.init = function() {
 	
@@ -27,11 +28,18 @@ addPatient.directive("addbutton", function($compile){
 		scope: true,
 		link: function(scope, elem, attrs) {
 			scope.addField = function(){
-				elem.parent().parent().append($compile("<medicationsfield>")(scope));
-				elem.replaceWith($compile("<removebutton>")(scope))
+				var index = scope.dd.medicationCount;
+				var newField = $compile("<medicationsfield>")(scope)
+				newField.attr("id", "field_" + (index + 1));
+				angular.element(document.getElementById("medicationsFieldContainer")).append(newField);
+				
+				var removeButton = $compile("<removebutton>")(scope);
+				removeButton.attr("index", index)
+				elem.replaceWith(removeButton)
+				scope.dd.medicationCount += 1;
 				//elem.removeAttr("addbuttonclick").attr("removebuttonclick","").text("-");
 				//$compile(elem)(scope);
-				console.log(attrs)
+				//console.log(attrs)
 			}
 		},
 		template: '<button class="medication-add-button" type="button" ng-click="addField()">+</button>'
@@ -45,8 +53,8 @@ addPatient.directive("removebutton", function($compile){
 			scope.removeField = function() {
 				//var newMedicationField = "<medicationsfield>"
 				//elem.parent().parent().append($compile(newMedicationField)(scope));
-				console.log(elem)
-				console.log(scope)
+				elem.parent().parent().remove();
+				scope.dd.medicationCount -= 1;
 			}
 		},
 		template: '<button class="medication-remove-button" type="button" ng-click="removeField()">-</button>'
@@ -61,4 +69,16 @@ addPatient.directive("medicationsfield", function(){
 			'<addbutton></addbutton>'+
 			'</span>'
 		}
+});
+
+addPatient.directive("submitddbutton", function() {
+	return {
+		link: function(scope, elem, attrs) {
+			elem.bind("click", function() {
+				// /scope.pd.submit(scope)
+				angular.element(document.getElementById("personalDetails_form")).removeClass("hidden");
+				//angular.element(document.getElementById("diagnosisDetails_form")).addClass("hidden");
+			});
+		}
+	}
 });
