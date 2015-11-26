@@ -10,7 +10,7 @@ pdController.prototype.init = function() {
 
 pdController.prototype.submit = function($scope, unifiedDataModel) {
 	unifiedDataModel.personalDetails = $scope.model
-	console.log(unifiedDataModel);
+	console.log(unifiedDataModel)
 };
 
 addPatient.directive("submitpdbutton", function(unifiedDataModel) {

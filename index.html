@@ -15,8 +15,8 @@
 				<label id = "personalDetails_label" class = "header_label">Personal Details: </label>
 				<div id = "personalDetails_form">
 					<span>
-						<label>Date: </label><input type="text" ng-model="pd.model.date"/>
-						<label>Patient UID: </label><input type="text" ng-model="pd.model.UID" disabled/>
+						<label>Date: </label><input type="text" ng-model="model.date"/>
+						<label>Patient UID: </label><input type="text" ng-model="model.UID" disabled/>
 					</span>
 					<span>
 						<label>First Name: </label><input type="text" ng-model="model.firstName"/>
@@ -45,17 +45,17 @@
 				<label id = "diagnosisDetails_label" class = "header_label">Diagnosis Details: </label>
 				<div id = "diagnosisDetails_form" class="hidden">
 					<span>
-						<label>Symptoms: </label><textarea ng-model="dd.symptoms"></textarea>
+						<label>Symptoms: </label><textarea ng-model="model.symptoms"></textarea>
 					</span>
 					<span>
-						<label>Examinations: </label><textarea ng-model="dd.examinations"></textarea>
+						<label>Examinations: </label><textarea ng-model="model.examinations"></textarea>
 					</span>
 					<span>
-						<label>Applied Procedures: </label><textarea ng-model="dd.appliedProcedures"></textarea>
+						<label>Applied Procedures: </label><textarea ng-model="model.appliedProcedures"></textarea>
 					</span>
 					<span>
 						<label>Medications Assigned: </label>
-						<div id="medicationsFieldContainer" count={{dd.medicationCount}}>
+						<div id="medicationsFieldContainer" count={{model.medicationCount}}>
 							<medicationsfield class="ng-scope" id="field_1"></medicationsfield>
 						</div>
 					</span>
@@ -64,7 +64,7 @@
 			</div>
 			<div id = "summary_main" class="border_main_panel" ng-controller = "summary">
 				<label class ="header_label">Summary: </label>
-			</div>
+				<summarybody></summarybody>
 		</div>
 		<div id = "overlay_content" class="popup">
 			<div id = "addDiagnosisPrompt" class="border_main_panel">

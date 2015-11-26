@@ -1,22 +1,24 @@
 addPatient.controller("diagnosisDetails", ddController);
 
 function ddController($scope) {
-	this.symptoms = "Works Bro";
-	this.examinations = "Works Bro"
-	this.appliedProcedures = "Works Bro";
-	this.medicationName = "Works Bro";
-	this.medicationDosage = "Works Bro";
+	$scope.model = {}
+	$scope.model.symptoms = "Works Bro";
+	$scope.model.examinations = "Works Bro"
+	$scope.model.appliedProcedures = "Works Bro";
+	$scope.model.medicationName = "Works Bro";
+	$scope.model.medicationDosage = "Works Bro";
 
-	this.medications = {};
-	this.medications[this.medicationName] = this.medicationDosage;
-	this.medicationCount = 1;
+	$scope.model.medications = {};
+	$scope.model.medications[$scope.model.medicationName] = $scope.model.medicationDosage;
+	$scope.model.medicationCount = 1;
 }
 ddController.prototype.init = function() {
 	
 }
 
-ddController.prototype.medicationAddButtonClicked = function() {
-	
+ddController.prototype.submit = function($scope, unifiedDataModel) {
+	unifiedDataModel.diagnosisDetails.diagnoses[unifiedDataModel.diagnosisDetails.count] = scope.model;
+	unifiedDataModel.diagnosisDetails.count++;
 }
 
 ddController.prototype._createMedicationField = function() {
@@ -75,8 +77,8 @@ addPatient.directive("submitddbutton", function() {
 	return {
 		link: function(scope, elem, attrs) {
 			elem.bind("click", function() {
-				// /scope.pd.submit(scope)
-				angular.element(document.getElementById("personalDetails_form")).removeClass("hidden");
+				scope.dd.submit(scope)
+				angular.element(document.getElementById("diagnosisDetails_form")).addClass("hidden");
 				//angular.element(document.getElementById("diagnosisDetails_form")).addClass("hidden");
 			});
 		}
