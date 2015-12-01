@@ -43,7 +43,10 @@
 			</div>
 			<div id = "diagnosisDetails_main" class="border_main_panel" ng-controller = "diagnosisDetails as dd">
 				<label id = "diagnosisDetails_label" class = "header_label">Diagnosis Details: </label>
-				<div id = "diagnosisDetails_form" class="hidden">
+				<div id = "diagnosisDetails_form" class="">
+					<span>
+						<label>Primary Diagnosis: </label><input type="text" ng-model="model.primaryDiagnosis"/>
+					</span>
 					<span>
 						<label>Symptoms: </label><textarea ng-model="model.symptoms"></textarea>
 					</span>
@@ -56,17 +59,69 @@
 					<span>
 						<label>Medications Assigned: </label>
 						<div id="medicationsFieldContainer" count={{model.medicationCount}}>
-							<medicationsfield class="ng-scope" id="field_1"></medicationsfield>
+							<medicationsfield class="ng-scope" id="field_1" ng-repeat="medication in model.medications"></medicationsfield>
 						</div>
 					</span>
 					<button id="diagnosisDetails_submit" class="submit_button" submitddbutton>Submit</button>
 				</div>
 			</div>
 			<div id = "summary_main" class="border_main_panel" ng-controller = "summary">
-				<label class ="header_label">Summary: </label>
-				<summarybody></summarybody>
-		</div>
-		<div id = "overlay_content" class="popup">
+				<div id = "summary_body">
+					<div id ="summary_body_personalDetails">
+						<label class ="header_label">Personal Details: </label>
+						<span>
+							<label>Date: {{personalDetails.date}}</label>
+							<label>Patient UID: {{personalDetails.uid}}</label></span>
+						<span>
+							<label>First Name: {{personalDetails.firstName}}</label>
+							<label>Last Name: {{personalDetails.lastName}}</label></span>
+						<span>
+							<label>Phone Number: {{personalDetails.phoneNumber}}</label>
+							<label class="small-input">Age: {{personalDetails.age}}</label>
+							<label class="small-input">Sex: {{personalDetails.sex}}</label></span>
+						<span>
+							<label>Address Line 1: {{personalDetails.addressLine1}}</label></span>
+						<span>
+							<label>Address Line 2: {{personalDetails.addressLine2}}</label></span>
+						<span>
+							<label>City: {{personalDetails.city}}</label>
+							<label>State: {{personalDetails.state}}</label>
+							<label>Pin Code: {{personalDetails.pincode}}</label>
+						</span>
+					</div>
+					<div id = "summary_body_diagnosisDetails" class ="inline_div">
+						<label class ="header_label">Diagnosis Details: </label>
+						<div id = "diagnoses_main" diagnosis-count="{{diagnosisDetails.count}}">
+							<table class ="summary_table">
+								<tr class = "summary_table_rows" ng-click="diagnosis.isExpanded = !diagnosis.isExpanded" ng-repeat-start="diagnosis in diagnosisDetails.diagnoses">
+									<td class = "summary_table_diagnosis_index">1. </td>
+									<td class = "summary_diagnosis_table_cell">{{diagnosis.primaryDiagnosis}}</td>
+								</tr>
+								<tr ng-if="diagnosis.isExpanded" class = "summary_table_rows">
+									<th class ="summary_table_header summary_table_detail_row">Symptoms:</th>
+									<td class="summary_diagnosis_table_cell">{{diagnosis.symptoms}}</td>
+								</tr>
+								<tr ng-if="diagnosis.isExpanded" class = "summary_table_rows">
+									<th class ="summary_table_header summary_table_detail_row">Examinations:</th>
+									<td class="summary_diagnosis_table_cell">{{diagnosis.examinations}}</td>
+								</tr>
+								<tr ng-if="diagnosis.isExpanded" class = "summary_table_rows">
+									<th class ="summary_table_header summary_table_detail_row">Applied Procedures:</th>
+									<td class="summary_diagnosis_table_cell">{{diagnosis.appliedProcedures}}</td>
+								</tr>
+								<tr ng-if="diagnosis.isExpanded" class = "summary_table_rows" ng-repeat-end="">
+									<th class ="summary_table_header summary_table_detail_row">Medications</th>
+									<td class="summary_diagnosis_table_cell">{{diagnosis.medications[0].name}}</td>
+								</tr>
+							</table>
+							<span class = "border_light textcenteralign">
+								<button id="addDiagnosis"></button>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		<div id = "overlay_content" class="popup hidden">
 			<div id = "addDiagnosisPrompt" class="border_main_panel">
 				<label class = "header_label">Add Diagnosis?</label>
 				<span class = "prompt_message">Do you wish to add another Diagnosis?</span>

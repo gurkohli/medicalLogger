@@ -1,7 +1,7 @@
 addPatient.controller("personalDetails", pdController);
 
 function pdController($scope, unifiedDataModel) {
-	$scope.model = unifiedDataModel.personalDetails;
+	$scope.model = {};
 };
 
 pdController.prototype.init = function() {
@@ -9,7 +9,8 @@ pdController.prototype.init = function() {
 };
 
 pdController.prototype.submit = function($scope, unifiedDataModel) {
-	unifiedDataModel.personalDetails = $scope.model
+	unifiedDataModel.personalDetails = JSON.parse(angular.toJson($scope.model));
+	$scope.$root.$broadcast("personalDataSubmit")
 	console.log(unifiedDataModel)
 };
 

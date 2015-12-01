@@ -2,15 +2,59 @@ body {
 	width: 95%;
 }
 
+.summary_table {
+	table-layout: fixed;
+	width: 100%;
+	text-align: left;
+}
+
+.summary_table_header {
+	padding: 0px 0px 0px 5px;
+	width: 25%;
+}
+
+.summary_table_diagnosis_index {
+	width: 2%;
+	padding: 0px 0px 0px 5px;
+}
+
+.summary_table_detail_row {
+	padding: 0px 0px 0px 15px !important;
+}
+
+.summary_table_rows {
+
+}
+
+.inline_div {
+	display: inline-block;
+}
+
 .hidden {
 	display: none !important;
+}
+
+.textcenteralign {
+	text-align: center;
+}
+
+.summary_diagnosis_table_cell {
+	max-width: 100%;
+	padding: 10px;
+}
+
+.border_light {
+	border: black;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 5px;
 }
 
 .border_main_panel {
 	border: black;
     border-width: 2px;
     border-style: solid;
-    border-radius: 20px;
+    border-radius: 5px;
 }
 
 .overlay {
@@ -21,8 +65,8 @@ body {
 
 .header_label {
 	font-size: 20px;
-	padding: 0px 0px 5px 5px !important;
-	display: block;
+	padding: 5px !important;
+	display: inline-block;
 }
 
 .submit_button {
@@ -51,7 +95,7 @@ body {
 	width: 100%;
 }
 
-#personalDetails_main span, #summary_body_personalDetails span {
+#personalDetails_main span, #summary_body span {
 	float: left;
 	clear: left;
 	width: 100%;
@@ -66,7 +110,7 @@ body {
 	padding: 2px;
 }
 
-#personalDetails_main label, #summary_body_personalDetails label {
+#personalDetails_main label, #summary_body label {
 	padding: 2px 5px 2px 5px;
 }
 
@@ -126,7 +170,7 @@ body {
 	max-width: 25px;
 }
 
-#summary_body_personalDetails label {
+#summary_body label {
 	width: inherit;
 }
 

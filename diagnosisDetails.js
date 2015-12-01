@@ -2,23 +2,27 @@ addPatient.controller("diagnosisDetails", ddController);
 
 function ddController($scope) {
 	$scope.model = {}
-	$scope.model.symptoms = "Works Bro";
-	$scope.model.examinations = "Works Bro"
-	$scope.model.appliedProcedures = "Works Bro";
-	$scope.model.medicationName = "Works Bro";
-	$scope.model.medicationDosage = "Works Bro";
+	$scope.model.primaryDiagnosis = "Primary Diagnosis Test";
+	$scope.model.symptoms = "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis ";
+	$scope.model.examinations = "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis "
+	$scope.model.appliedProcedures = "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis ";
+	//$scope.model.medicationName = "Works Bro";
+	//$scope.model.medicationDosage = "Works Bro";
 
-	$scope.model.medications = {};
-	$scope.model.medications[$scope.model.medicationName] = $scope.model.medicationDosage;
-	$scope.model.medicationCount = 1;
+	$scope.model.medications = [];
+	$scope.medicationHashKeys = [];
+	$scope.model.medications[0] = {name: "Works", dose: "Works"}
+	$scope.model.medicationCount = 0;
 }
 ddController.prototype.init = function() {
 	
 }
 
 ddController.prototype.submit = function($scope, unifiedDataModel) {
-	unifiedDataModel.diagnosisDetails.diagnoses[unifiedDataModel.diagnosisDetails.count] = scope.model;
+	//Copy data to unified data model. Data is stringified to and parsed from JSON to remove the internal-use values
+	unifiedDataModel.diagnosisDetails.diagnoses[unifiedDataModel.diagnosisDetails.count] = JSON.parse(angular.toJson($scope.model));
 	unifiedDataModel.diagnosisDetails.count++;
+	$scope.$root.$broadcast("diagnosisDataSubmit");
 }
 
 ddController.prototype._createMedicationField = function() {
@@ -30,18 +34,14 @@ addPatient.directive("addbutton", function($compile){
 		scope: true,
 		link: function(scope, elem, attrs) {
 			scope.addField = function(){
-				var index = scope.dd.medicationCount;
-				var newField = $compile("<medicationsfield>")(scope)
-				newField.attr("id", "field_" + (index + 1));
-				angular.element(document.getElementById("medicationsFieldContainer")).append(newField);
+				var index = scope.model.medicationCount;
+				scope.model.medications[index+1] = {name: "", dose: ""}
 				
 				var removeButton = $compile("<removebutton>")(scope);
+				scope.medicationHashKeys[index] = scope.medication.$$hashKey
 				removeButton.attr("index", index)
 				elem.replaceWith(removeButton)
-				scope.dd.medicationCount += 1;
-				//elem.removeAttr("addbuttonclick").attr("removebuttonclick","").text("-");
-				//$compile(elem)(scope);
-				//console.log(attrs)
+				scope.model.medicationCount++;
 			}
 		},
 		template: '<button class="medication-add-button" type="button" ng-click="addField()">+</button>'
@@ -53,10 +53,10 @@ addPatient.directive("removebutton", function($compile){
 		scope: true,
 		link: function(scope, elem, attrs) {
 			scope.removeField = function() {
-				//var newMedicationField = "<medicationsfield>"
-				//elem.parent().parent().append($compile(newMedicationField)(scope));
-				elem.parent().parent().remove();
-				scope.dd.medicationCount -= 1;
+				var index = scope.medicationHashKeys.indexOf(scope.medication.$$hashKey)
+				scope.model.medications.splice(index,1);
+				scope.medicationHashKeys.splice(index,1)
+				scope.model.medicationCount -= 1;
 			}
 		},
 		template: '<button class="medication-remove-button" type="button" ng-click="removeField()">-</button>'
@@ -66,18 +66,18 @@ addPatient.directive("removebutton", function($compile){
 addPatient.directive("medicationsfield", function(){
 	return {
 		template: '<span class="inline-fields">'+
-			'<input class="medication-name" type="text" ng-model="dd.medicationName"/>'+
-			'<input class="medication-dose" type="text" ng-model="dd.medicationDosage"/>'+
+			'<input class="medication-name" type="text" ng-model="medication.name"/>'+
+			'<input class="medication-dose" type="text" ng-model="medication.dose"/>'+
 			'<addbutton></addbutton>'+
 			'</span>'
 		}
 });
 
-addPatient.directive("submitddbutton", function() {
+addPatient.directive("submitddbutton", function(unifiedDataModel) {
 	return {
 		link: function(scope, elem, attrs) {
 			elem.bind("click", function() {
-				scope.dd.submit(scope)
+				scope.dd.submit(scope, unifiedDataModel)
 				angular.element(document.getElementById("diagnosisDetails_form")).addClass("hidden");
 				//angular.element(document.getElementById("diagnosisDetails_form")).addClass("hidden");
 			});
