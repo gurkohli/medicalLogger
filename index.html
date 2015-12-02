@@ -93,25 +93,37 @@
 						<label class ="header_label">Diagnosis Details: </label>
 						<div id = "diagnoses_main" diagnosis-count="{{diagnosisDetails.count}}">
 							<table class ="summary_table">
-								<tr class = "summary_table_rows" ng-click="diagnosis.isExpanded = !diagnosis.isExpanded" ng-repeat-start="diagnosis in diagnosisDetails.diagnoses">
-									<td class = "summary_table_diagnosis_index">1. </td>
-									<td class = "summary_diagnosis_table_cell">{{diagnosis.primaryDiagnosis}}</td>
+								<colgroup>
+									<col width = "5%"><col width = "5%">
+									<col width = "5%"><col width = "5%">
+									<col width = "5%"><col width = "5%">
+									<col width = "5%"><col width = "5%">
+									<col width = "5%"><col width = "5%">
+									<col width = "5%"><col width = "5%">
+									<col width = "5%"><col width = "5%">
+									<col width = "5%"><col width = "5%">
+									<col width = "5%"><col width = "5%">
+									<col width = "5%"><col width = "5%">
+								</colgroup>
+								<tr class = "summary_table_rows" ng-click="diagnosis.isExpanded = !diagnosis.isExpanded" ng-repeat-start="(index, diagnosis) in diagnosisDetails.diagnoses">
+									<td colspan='1' class="summary_table_header clickable">{{index+1}}.</td>
+									<td colspan='10' class="summary_table_main_cell clickable"> {{diagnosis.primaryDiagnosis}}</td>
 								</tr>
 								<tr ng-if="diagnosis.isExpanded" class = "summary_table_rows">
-									<th class ="summary_table_header summary_table_detail_row">Symptoms:</th>
-									<td class="summary_diagnosis_table_cell">{{diagnosis.symptoms}}</td>
+									<th colspan='5' class ="summary_table_header summary_table_detail_row">Symptoms:</th>
+									<td colspan='15' class="summary_table_detail_cell">{{diagnosis.symptoms}}</td>
 								</tr>
 								<tr ng-if="diagnosis.isExpanded" class = "summary_table_rows">
-									<th class ="summary_table_header summary_table_detail_row">Examinations:</th>
-									<td class="summary_diagnosis_table_cell">{{diagnosis.examinations}}</td>
+									<th colspan='5' class ="summary_table_header summary_table_detail_row">Examinations:</th>
+									<td colspan='15' class="summary_table_detail_cell">{{diagnosis.examinations}}</td>
 								</tr>
 								<tr ng-if="diagnosis.isExpanded" class = "summary_table_rows">
-									<th class ="summary_table_header summary_table_detail_row">Applied Procedures:</th>
-									<td class="summary_diagnosis_table_cell">{{diagnosis.appliedProcedures}}</td>
+									<th colspan='5' class ="summary_table_header summary_table_detail_row">Applied Procedures:</th>
+									<td colspan='15' class="summary_table_detail_cell">{{diagnosis.appliedProcedures}}</td>
 								</tr>
 								<tr ng-if="diagnosis.isExpanded" class = "summary_table_rows" ng-repeat-end="">
-									<th class ="summary_table_header summary_table_detail_row">Medications</th>
-									<td class="summary_diagnosis_table_cell">{{diagnosis.medications[0].name}}</td>
+									<th colspan='5' class ="summary_table_header summary_table_detail_row">Medications</th>
+									<td colspan='15' class="summary_table_detail_cell">{{diagnosis.medications[0].name}}</td>
 								</tr>
 							</table>
 							<span class = "border_light textcenteralign">

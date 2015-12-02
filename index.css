@@ -8,22 +8,17 @@ body {
 	text-align: left;
 }
 
-.summary_table_header {
-	padding: 0px 0px 0px 5px;
-	width: 25%;
+.clickable {
+	cursor: pointer;
+	color: darkmagenta;
 }
 
-.summary_table_diagnosis_index {
-	width: 2%;
+.summary_table_header {
 	padding: 0px 0px 0px 5px;
 }
 
 .summary_table_detail_row {
 	padding: 0px 0px 0px 15px !important;
-}
-
-.summary_table_rows {
-
 }
 
 .inline_div {
@@ -38,9 +33,13 @@ body {
 	text-align: center;
 }
 
-.summary_diagnosis_table_cell {
+.summary_table_main_cell {
 	max-width: 100%;
-	padding: 10px;
+	padding: 2.5px;
+}
+
+.summary_table_detail_cell {
+	padding: 5px;
 }
 
 .border_light {
