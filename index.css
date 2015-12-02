@@ -1,24 +1,72 @@
 body {
 	width: 95%;
 }
+button:focus {
+	outline: none;
+}
+div {
+	display: inline-block;
+	width: 100%;
+}
+
+.dashed_gray_button {
+    background-color: white;
+    border-style: dashed;
+}
+
+.dashed_gray_button:active {
+    background-color: #f2f2f2;
+    border-style: dashed;
+}
 
 .summary_table {
 	table-layout: fixed;
 	width: 100%;
 	text-align: left;
+	border-collapse: collapse;
 }
 
 .clickable {
 	cursor: pointer;
-	color: darkmagenta;
+}
+
+.right_float {
+	float: right;
+}
+
+.container {
+	border: solid #e2e2e2 thin;
+    background-color: #fafafa;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.opaque {
+	opacity: 0.2;
 }
 
 .summary_table_header {
 	padding: 0px 0px 0px 5px;
 }
 
-.summary_table_detail_row {
+.summary_table_rows {
+	border: solid #e2e2e2 thin;
+    background-color: #fafafa;
+}
+
+.summary_table_detail_header {
 	padding: 0px 0px 0px 15px !important;
+}
+
+.summary_table_detail_rows {
+	border: solid #f0f0f0 thin;
+    background-color: #fefefe;
+}
+
+.summary_table_add_button {
+    width: 100%;
+    font-style: oblique;
+    color: #808080;
 }
 
 .inline_div {
@@ -27,10 +75,6 @@ body {
 
 .hidden {
 	display: none !important;
-}
-
-.textcenteralign {
-	text-align: center;
 }
 
 .summary_table_main_cell {
@@ -71,6 +115,7 @@ body {
 .submit_button {
 	margin: 5px;
 	padding: 5px;
+	width: 15%;
 }
 
 #addDiagnosisPrompt {
@@ -97,11 +142,11 @@ body {
 #personalDetails_main span, #summary_body span {
 	float: left;
 	clear: left;
-	width: 100%;
+	width: calc(100% - 6px);
 	height: 25px;
 	display: flex;
 	white-space: nowrap;
-	padding: 2px;
+	padding: 3px 2px 3px 2px;
 }
 
 #personalDetails_main input {
@@ -125,7 +170,7 @@ body {
 
 #diagnosisDetails_main span {
 	float: left;
-	width: 100%;
+	width: calc(100% - 6px);
 	padding: 2px 0px 2px 0px;
 }
 
@@ -139,7 +184,7 @@ body {
 }
 
 #diagnosisDetails_main input {
-	width: 100%;
+	width: calc(100% - 3px);
 	height: 25px;
 	padding: 2px;
 	margin: 5px;

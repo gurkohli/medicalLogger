@@ -1,33 +1,36 @@
 addPatient.controller("diagnosisDetails", ddController);
 
 function ddController($scope) {
-	$scope.model = {}
-	$scope.model.primaryDiagnosis = "Primary Diagnosis Test";
-	$scope.model.symptoms = "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis ";
-	$scope.model.examinations = "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis "
-	$scope.model.appliedProcedures = "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis ";
-	//$scope.model.medicationName = "Works Bro";
-	//$scope.model.medicationDosage = "Works Bro";
+	$scope.$root.isDDActive = false;
 
-	$scope.model.medications = [];
-	$scope.medicationHashKeys = [];
-	$scope.model.medications[0] = {name: "Works", dose: "Works"}
-	$scope.model.medicationCount = 0;
-}
-ddController.prototype.init = function() {
-	
+	$scope.reset = function() {
+		$scope.model = {}
+		$scope.model.medications = [];
+		$scope.model.medications[0] = {name: "", dose: ""}
+		$scope.model.medicationCount = 0;
+		$scope.medicationHashKeys = [];
+	}
+
+	$scope.reset($scope);
+
+	$scope.$watch('isDDActive', function(newValue, oldValue) {
+		if (newValue === true) {
+			$scope.reset($scope);
+		}
+	})
 }
 
 ddController.prototype.submit = function($scope, unifiedDataModel) {
-	//Copy data to unified data model. Data is stringified to and parsed from JSON to remove the internal-use values
-	unifiedDataModel.diagnosisDetails.diagnoses[unifiedDataModel.diagnosisDetails.count] = JSON.parse(angular.toJson($scope.model));
-	unifiedDataModel.diagnosisDetails.count++;
 	$scope.$root.$broadcast("diagnosisDataSubmit");
+	$scope.$apply(function() {
+		//Copy data to unified data model. Data is stringified to and parsed from JSON to remove the internal-use values
+		unifiedDataModel.diagnosisDetails.diagnoses[unifiedDataModel.diagnosisDetails.count] = JSON.parse(angular.toJson($scope.model));
+		unifiedDataModel.diagnosisDetails.count++;
+		$scope.$root.isDDActive = false;
+		$scope.$root.isSummaryActive = true;	
+	});
 }
 
-ddController.prototype._createMedicationField = function() {
-
-}
 
 addPatient.directive("addbutton", function($compile){
 	return {
@@ -77,9 +80,7 @@ addPatient.directive("submitddbutton", function(unifiedDataModel) {
 	return {
 		link: function(scope, elem, attrs) {
 			elem.bind("click", function() {
-				scope.dd.submit(scope, unifiedDataModel)
-				angular.element(document.getElementById("diagnosisDetails_form")).addClass("hidden");
-				//angular.element(document.getElementById("diagnosisDetails_form")).addClass("hidden");
+				scope.dd.submit(scope, unifiedDataModel);
 			});
 		}
 	}

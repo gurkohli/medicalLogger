@@ -11,9 +11,9 @@
 	</head>
 	<body ng-app="addPatient" class="ng-scope">
 		<div id = "main_content">
-			<div id = "personalDetails_main" class = "border_main_panel" ng-controller = "personalDetails as pd">
+			<div id = "personalDetails_main" ng-class="{opaque: !isPDActive}" class = "border_main_panel" ng-controller = "personalDetails as pd">
 				<label id = "personalDetails_label" class = "header_label">Personal Details: </label>
-				<div id = "personalDetails_form">
+				<div id = "personalDetails_form" ng-if="isPDActive" class ="container">
 					<span>
 						<label>Date: </label><input type="text" ng-model="model.date"/>
 						<label>Patient UID: </label><input type="text" ng-model="model.UID" disabled/>
@@ -38,12 +38,12 @@
 						<label>State: </label><input type="text" ng-model="model.state"/>
 						<label>Pin Code: </label><input type="text" ng-model="model.pincode"/>
 					</span>
-					<button id="personalDetails_submit" class="add_patient_submit_button" submitpdbutton>Submit</button>
+					<button id="personalDetails_submit" class="submit_button" submitpdbutton>Submit</button>
 				</div>
 			</div>
-			<div id = "diagnosisDetails_main" class="border_main_panel" ng-controller = "diagnosisDetails as dd">
+			<div id = "diagnosisDetails_main" ng-class="{opaque: !isDDActive}" class="border_main_panel" ng-controller = "diagnosisDetails as dd">
 				<label id = "diagnosisDetails_label" class = "header_label">Diagnosis Details: </label>
-				<div id = "diagnosisDetails_form" class="">
+				<div id = "diagnosisDetails_form" ng-if="isDDActive" class="container">
 					<span>
 						<label>Primary Diagnosis: </label><input type="text" ng-model="model.primaryDiagnosis"/>
 					</span>
@@ -65,31 +65,34 @@
 					<button id="diagnosisDetails_submit" class="submit_button" submitddbutton>Submit</button>
 				</div>
 			</div>
-			<div id = "summary_main" class="border_main_panel" ng-controller = "summary">
-				<div id = "summary_body">
+			<div id = "summary_main" ng-class="{opaque: !isSummaryActive}" class="border_main_panel" ng-controller = "summary">
+				<label class ="header_label">Summary: </label>
+				<div id = "summary_body" ng-if="isSummaryActive">
 					<div id ="summary_body_personalDetails">
 						<label class ="header_label">Personal Details: </label>
-						<span>
-							<label>Date: {{personalDetails.date}}</label>
-							<label>Patient UID: {{personalDetails.uid}}</label></span>
-						<span>
-							<label>First Name: {{personalDetails.firstName}}</label>
-							<label>Last Name: {{personalDetails.lastName}}</label></span>
-						<span>
-							<label>Phone Number: {{personalDetails.phoneNumber}}</label>
-							<label class="small-input">Age: {{personalDetails.age}}</label>
-							<label class="small-input">Sex: {{personalDetails.sex}}</label></span>
-						<span>
-							<label>Address Line 1: {{personalDetails.addressLine1}}</label></span>
-						<span>
-							<label>Address Line 2: {{personalDetails.addressLine2}}</label></span>
-						<span>
-							<label>City: {{personalDetails.city}}</label>
-							<label>State: {{personalDetails.state}}</label>
-							<label>Pin Code: {{personalDetails.pincode}}</label>
-						</span>
+						<div class="container">
+							<span>
+								<label>Date: {{personalDetails.date}}</label>
+								<label>Patient UID: {{personalDetails.uid}}</label></span>
+							<span>
+								<label>First Name: {{personalDetails.firstName}}</label>
+								<label>Last Name: {{personalDetails.lastName}}</label></span>
+							<span>
+								<label>Phone Number: {{personalDetails.phoneNumber}}</label>
+								<label class="small-input">Age: {{personalDetails.age}}</label>
+								<label class="small-input">Sex: {{personalDetails.sex}}</label></span>
+							<span>
+								<label>Address Line 1: {{personalDetails.addressLine1}}</label></span>
+							<span>
+								<label>Address Line 2: {{personalDetails.addressLine2}}</label></span>
+							<span>
+								<label>City: {{personalDetails.city}}</label>
+								<label>State: {{personalDetails.state}}</label>
+								<label>Pin Code: {{personalDetails.pincode}}</label>
+							</span>
+						</div>
 					</div>
-					<div id = "summary_body_diagnosisDetails" class ="inline_div">
+					<div id = "summary_body_diagnosisDetails">
 						<label class ="header_label">Diagnosis Details: </label>
 						<div id = "diagnoses_main" diagnosis-count="{{diagnosisDetails.count}}">
 							<table class ="summary_table">
@@ -107,28 +110,30 @@
 								</colgroup>
 								<tr class = "summary_table_rows" ng-click="diagnosis.isExpanded = !diagnosis.isExpanded" ng-repeat-start="(index, diagnosis) in diagnosisDetails.diagnoses">
 									<td colspan='1' class="summary_table_header clickable">{{index+1}}.</td>
-									<td colspan='10' class="summary_table_main_cell clickable"> {{diagnosis.primaryDiagnosis}}</td>
+									<td colspan='18' class="summary_table_main_cell clickable"> {{diagnosis.primaryDiagnosis}}</td>
+									<td ng-if="!diagnosis.isExpanded" colspan="1" class ="summary_table_main_cell clickable">+</td>
+									<td ng-if="diagnosis.isExpanded" colspan="1" class ="summary_table_main_cell clickable">-</td>
 								</tr>
-								<tr ng-if="diagnosis.isExpanded" class = "summary_table_rows">
-									<th colspan='5' class ="summary_table_header summary_table_detail_row">Symptoms:</th>
+								<tr ng-if="diagnosis.isExpanded" class = "summary_table_detail_rows">
+									<th colspan='5' class ="summary_table_detail_header">Symptoms:</th>
 									<td colspan='15' class="summary_table_detail_cell">{{diagnosis.symptoms}}</td>
 								</tr>
-								<tr ng-if="diagnosis.isExpanded" class = "summary_table_rows">
-									<th colspan='5' class ="summary_table_header summary_table_detail_row">Examinations:</th>
+								<tr ng-if="diagnosis.isExpanded" class = "summary_table_detail_rows">
+									<th colspan='5' class ="summary_table_detail_header">Examinations:</th>
 									<td colspan='15' class="summary_table_detail_cell">{{diagnosis.examinations}}</td>
 								</tr>
-								<tr ng-if="diagnosis.isExpanded" class = "summary_table_rows">
-									<th colspan='5' class ="summary_table_header summary_table_detail_row">Applied Procedures:</th>
+								<tr ng-if="diagnosis.isExpanded" class = "summary_table_detail_rows">
+									<th colspan='5' class ="summary_table_detail_header">Applied Procedures:</th>
 									<td colspan='15' class="summary_table_detail_cell">{{diagnosis.appliedProcedures}}</td>
 								</tr>
-								<tr ng-if="diagnosis.isExpanded" class = "summary_table_rows" ng-repeat-end="">
-									<th colspan='5' class ="summary_table_header summary_table_detail_row">Medications</th>
+								<tr ng-if="diagnosis.isExpanded" class = "summary_table_detail_rows" ng-repeat-end="">
+									<th colspan='5' class ="summary_table_detail_header">Medications</th>
 									<td colspan='15' class="summary_table_detail_cell">{{diagnosis.medications[0].name}}</td>
 								</tr>
+								<tr class = "summary_table_rows">
+									<th colspan='20' class =""><button id="addDiagnosis" class ="summary_table_add_button dashed_gray_button" adddiagnosis>Click here to add another diagnosis</button></th>
+								</tr>
 							</table>
-							<span class = "border_light textcenteralign">
-								<button id="addDiagnosis"></button>
-							</span>
 						</div>
 					</div>
 				</div>
