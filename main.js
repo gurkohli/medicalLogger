@@ -7,6 +7,15 @@ addPatient.factory('unifiedDataModel', function() {
 		count: 0,
 		diagnoses: []
 	};
-
 	return unifiedDataModel;
+});
+
+addPatient.directive("submitnewdata", function() {
+	return {
+		link: function(scope, elem, attrs) {
+			elem.bind("click", function() {
+				console.info("Submit button not wired yet")
+			});
+		}
+	}
 });

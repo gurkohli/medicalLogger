@@ -45,6 +45,10 @@ div {
 	opacity: 0.2;
 }
 
+.required {
+	background-color: rgba(255,0,0,0.5)
+}
+
 .summary_table_header {
 	padding: 0px 0px 0px 5px;
 }
@@ -67,6 +71,11 @@ div {
     width: 100%;
     font-style: oblique;
     color: #808080;
+}
+
+.summary_edit_button {
+	text-align: right;
+    padding-top: 5px;
 }
 
 .inline_div {
@@ -118,6 +127,10 @@ div {
 	width: 15%;
 }
 
+.small-input {
+	padding-left: 0px !important;
+}
+
 #addDiagnosisPrompt {
 	width: 100%;
 	display: inline-block;
@@ -156,10 +169,6 @@ div {
 
 #personalDetails_main label, #summary_body label {
 	padding: 2px 5px 2px 5px;
-}
-
-#personalDetails_main .small-input {
-	width: 25%;
 }
 
 #diagnosisDetails_main {
@@ -216,8 +225,4 @@ div {
 
 #summary_body label {
 	width: inherit;
-}
-
-#summary_body_personalDetails .small-input {
-	max-width: 25% !important;
 }

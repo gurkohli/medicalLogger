@@ -1,6 +1,7 @@
 addPatient.controller("diagnosisDetails", ddController);
 
 function ddController($scope) {
+	$scope.$root.isEmpty.diagnosisDetails.primaryDiagnosis = true;
 	$scope.$root.isDDActive = false;
 
 	$scope.reset = function() {
@@ -18,19 +19,33 @@ function ddController($scope) {
 			$scope.reset($scope);
 		}
 	})
-}
+};
 
-ddController.prototype.submit = function($scope, unifiedDataModel) {
-	$scope.$root.$broadcast("diagnosisDataSubmit");
+ddController.prototype.validateData = function($scope) {
+	if ($scope.model) {
+		var result = {
+			validationPass: true,
+			primaryDiagnosis: true
+		};
+		if ($scope.model.primaryDiagnosis === undefined || $scope.model.primaryDiagnosis === "" ) {
+			result.validationPass = false;
+			result.primaryDiagnosis = false;
+		}
+		return result;
+	}
+};
+
+ddController.prototype.submit = function($scope, unifiedDataModel, $rootScope) {
 	$scope.$apply(function() {
 		//Copy data to unified data model. Data is stringified to and parsed from JSON to remove the internal-use values
-		unifiedDataModel.diagnosisDetails.diagnoses[unifiedDataModel.diagnosisDetails.count] = JSON.parse(angular.toJson($scope.model));
+		$scope.model.medications = JSON.parse(angular.toJson($scope.model.medications));
+		unifiedDataModel.diagnosisDetails.diagnoses[unifiedDataModel.diagnosisDetails.count] = angular.copy($scope.model);
 		unifiedDataModel.diagnosisDetails.count++;
 		$scope.$root.isDDActive = false;
 		$scope.$root.isSummaryActive = true;	
 	});
-}
-
+	$rootScope.$broadcast("diagnosisDataSubmit");
+};
 
 addPatient.directive("addbutton", function($compile){
 	return {
@@ -69,18 +84,25 @@ addPatient.directive("removebutton", function($compile){
 addPatient.directive("medicationsfield", function(){
 	return {
 		template: '<span class="inline-fields">'+
-			'<input class="medication-name" type="text" ng-model="medication.name"/>'+
-			'<input class="medication-dose" type="text" ng-model="medication.dose"/>'+
+			'<input class="medication-name" placeholder="Medication Name" type="text" ng-model="medication.name"/>'+
+			'<input class="medication-dose" placeholder="Medication Dose" type="text" ng-model="medication.dose"/>'+
 			'<addbutton></addbutton>'+
 			'</span>'
 		}
 });
 
-addPatient.directive("submitddbutton", function(unifiedDataModel) {
+addPatient.directive("submitddbutton", function(unifiedDataModel, $rootScope) {
 	return {
 		link: function(scope, elem, attrs) {
 			elem.bind("click", function() {
-				scope.dd.submit(scope, unifiedDataModel);
+				var validationResult = scope.dd.validateData(scope);
+				if (validationResult && validationResult.validationPass === true) {
+					scope.dd.submit(scope, unifiedDataModel, $rootScope)
+				} else {
+					scope.$apply(function() {
+						scope.$root.isEmpty.diagnosisDetails = validationResult;
+					})
+				}
 			});
 		}
 	}

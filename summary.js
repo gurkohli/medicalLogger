@@ -5,6 +5,7 @@ function summaryController($scope, unifiedDataModel) {
 	$scope.$on("personalDataSubmit", function() {
 		$scope.$apply(function() {
 			$scope.personalDetails = unifiedDataModel.personalDetails;
+			$scope.personalDetails.date = unifiedDataModel.personalDetails.date.toLocaleDateString();
 		})
 	})
 	$scope.$on("diagnosisDataSubmit", function() {

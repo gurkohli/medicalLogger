@@ -15,28 +15,31 @@
 				<label id = "personalDetails_label" class = "header_label">Personal Details: </label>
 				<div id = "personalDetails_form" ng-if="isPDActive" class ="container">
 					<span>
-						<label>Date: </label><input type="text" ng-model="model.date"/>
+						<label>Date: </label><input type="date" ng-class="{required: !isEmpty.personalDetails.date}" ng-model="model.date"/>
 						<label>Patient UID: </label><input type="text" ng-model="model.UID" disabled/>
 					</span>
 					<span>
-						<label>First Name: </label><input type="text" ng-model="model.firstName"/>
-						<label>Last Name: </label><input type="text" ng-model="model.lastName"/>
+						<label>First Name: </label><input type="text" placeholder="First Name" ng-class="{required: !isEmpty.personalDetails.firstName}" ng-model="model.firstName"/>
+						<label>Last Name: </label><input type="text" placeholder="Last Name" ng-class="{required: !isEmpty.personalDetails.lastName}" ng-model="model.lastName"/>
 					</span>
 					<span>
-						<label>Phone Number: </label><input type="text" ng-model="model.phoneNumber"/>
-						<label>Age: </label><input class="small-input" type="text" ng-model="model.age"/>
-						<label>Sex: </label><input class="small-input" type="text" ng-model="model.sex"/>
+						<label>Phone Number: </label><input type="number" placeholder="Phone Number" ng-class="{required: !isEmpty.personalDetails.phoneNumber}" ng-model="model.phoneNumber"/>
+						<span>
+							<label>Age: </label><input class="small-input" placeholder="Age" type="number" ng-model="model.age"/>
+							<label>Sex: </label><input placeholder="Sex" type="text" ng-model="model.sex"/>
+						</span>
 					</span>
 					<span>
-						<label>Address Line 1: </label><input type="text" ng-model="model.addressLine1"/>
+						<label>Address Line 1: </label><input type="text" placeholder="Address Line 1" ng-model="model.addressLine1"/>
 					</span>
 					<span>
-						<label>Address Line 2: </label><input type="text" ng-model="model.addressLine2"/>
+						<label>Address Line 2: </label><input type="text" placeholder="Address Line 2" ng-model="model.addressLine2"/>
 					</span>
 					<span>
-						<label>City: </label><input type="text" ng-model="model.city"/>
-						<label>State: </label><input type="text" ng-model="model.state"/>
-						<label>Pin Code: </label><input type="text" ng-model="model.pincode"/>
+						<label>City: </label><input type="text" placeholder="City" ng-model="model.city"/>
+						<label>State: </label><input type="text" placeholder="State" ng-model="model.state"/>
+						<label>Country: </label><input type="text" placeholder="Country" ng-model="model.country"/>
+						<label>Pin Code: </label><input type="text" placeholder="Pincode" ng-model="model.pincode"/>
 					</span>
 					<button id="personalDetails_submit" class="submit_button" submitpdbutton>Submit</button>
 				</div>
@@ -45,22 +48,25 @@
 				<label id = "diagnosisDetails_label" class = "header_label">Diagnosis Details: </label>
 				<div id = "diagnosisDetails_form" ng-if="isDDActive" class="container">
 					<span>
-						<label>Primary Diagnosis: </label><input type="text" ng-model="model.primaryDiagnosis"/>
+						<label>Primary Diagnosis: </label><input type="text" placeholder="Primary Diagnosis" ng-class="{required: !isEmpty.diagnosisDetails.primaryDiagnosis}" ng-model="model.primaryDiagnosis"/>
 					</span>
 					<span>
-						<label>Symptoms: </label><textarea ng-model="model.symptoms"></textarea>
+						<label>Symptoms: </label><textarea placeholder="Symptoms" ng-model="model.symptoms"></textarea>
 					</span>
 					<span>
-						<label>Examinations: </label><textarea ng-model="model.examinations"></textarea>
+						<label>Examinations: </label><textarea placeholder="Examinations" ng-model="model.examinations"></textarea>
 					</span>
 					<span>
-						<label>Applied Procedures: </label><textarea ng-model="model.appliedProcedures"></textarea>
+						<label>Applied Procedures: </label><textarea placeholder="Applied Procedures" ng-model="model.appliedProcedures"></textarea>
 					</span>
 					<span>
 						<label>Medications Assigned: </label>
 						<div id="medicationsFieldContainer" count={{model.medicationCount}}>
-							<medicationsfield class="ng-scope" id="field_1" ng-repeat="medication in model.medications"></medicationsfield>
+							<medicationsfield class="ng-scope" ng-repeat="medication in model.medications"></medicationsfield>
 						</div>
+					</span>
+					<span>
+						<label>Follow up date: </label><input type="date" ng-model="model.followUpDate"/>
 					</span>
 					<button id="diagnosisDetails_submit" class="submit_button" submitddbutton>Submit</button>
 				</div>
@@ -72,23 +78,26 @@
 						<label class ="header_label">Personal Details: </label>
 						<div class="container">
 							<span>
-								<label>Date: {{personalDetails.date}}</label>
-								<label>Patient UID: {{personalDetails.uid}}</label></span>
+								<label><b>Date:</b> {{personalDetails.date}}</label>
+								<label><b>Patient UID:</b> {{personalDetails.uid}}</label></span>
 							<span>
-								<label>First Name: {{personalDetails.firstName}}</label>
-								<label>Last Name: {{personalDetails.lastName}}</label></span>
+								<label><b>First Name:</b> {{personalDetails.firstName}}</label>
+								<label><b>Last Name:</b> {{personalDetails.lastName}}</label></span>
 							<span>
-								<label>Phone Number: {{personalDetails.phoneNumber}}</label>
-								<label class="small-input">Age: {{personalDetails.age}}</label>
-								<label class="small-input">Sex: {{personalDetails.sex}}</label></span>
+								<label><b>Phone Number:</b> {{personalDetails.phoneNumber}}</label>
+								<span>
+									<label class="small-input"><b>Age:</b> {{personalDetails.age}}</label>
+									<label><b>Sex:</b> {{personalDetails.sex}}</label>
+								</span></span>
 							<span>
-								<label>Address Line 1: {{personalDetails.addressLine1}}</label></span>
+								<label><b>Address Line 1:</b> {{personalDetails.addressLine1}}</label></span>
 							<span>
-								<label>Address Line 2: {{personalDetails.addressLine2}}</label></span>
+								<label><b>Address Line 2:</b> {{personalDetails.addressLine2}}</label></span>
 							<span>
-								<label>City: {{personalDetails.city}}</label>
-								<label>State: {{personalDetails.state}}</label>
-								<label>Pin Code: {{personalDetails.pincode}}</label>
+								<label><b>City:</b> {{personalDetails.city}}</label>
+								<label><b>State:</b> {{personalDetails.state}}</label>
+								<label><b>Country:</b> {{personalDetails.country}}</label>
+								<label><b>Pin Code:</b> {{personalDetails.pincode}}</label>
 							</span>
 						</div>
 					</div>
@@ -126,9 +135,19 @@
 									<th colspan='5' class ="summary_table_detail_header">Applied Procedures:</th>
 									<td colspan='15' class="summary_table_detail_cell">{{diagnosis.appliedProcedures}}</td>
 								</tr>
+								<tr ng-if="diagnosis.isExpanded" class = "summary_table_detail_rows">
+									<th colspan='5' class ="summary_table_detail_header">Medications:</th>
+									<td colspan='15' class="summary_table_detail_cell">
+										<table class ="summary_table" style="width: 50%">
+											<tr ng-repeat="medication in diagnosis.medications">
+												<td>{{medication.name}}</td>
+												<td>{{medication.dose}}</td>
+											</tr>
+										</table>
+								</tr>
 								<tr ng-if="diagnosis.isExpanded" class = "summary_table_detail_rows" ng-repeat-end="">
-									<th colspan='5' class ="summary_table_detail_header">Medications</th>
-									<td colspan='15' class="summary_table_detail_cell">{{diagnosis.medications[0].name}}</td>
+									<th colspan='5' class ="summary_table_detail_header">Follow up date:</th>
+									<td colspan='15' class="summary_table_detail_cell">{{diagnosis.followUpDate.toLocaleDateString()}}</td>
 								</tr>
 								<tr class = "summary_table_rows">
 									<th colspan='20' class =""><button id="addDiagnosis" class ="summary_table_add_button dashed_gray_button" adddiagnosis>Click here to add another diagnosis</button></th>
@@ -136,12 +155,8 @@
 							</table>
 						</div>
 					</div>
+					<button id="personalDetails_submit" class="submit_button" submitnewdata>Submit</button>
 				</div>
-			</div>
-		<div id = "overlay_content" class="popup hidden">
-			<div id = "addDiagnosisPrompt" class="border_main_panel">
-				<label class = "header_label">Add Diagnosis?</label>
-				<span class = "prompt_message">Do you wish to add another Diagnosis?</span>
 			</div>
 		</div>
 	</body>
