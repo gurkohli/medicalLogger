@@ -6,6 +6,9 @@ function summaryController($scope, unifiedDataModel) {
 		$scope.$apply(function() {
 			$scope.personalDetails = unifiedDataModel.personalDetails;
 			$scope.personalDetails.date = unifiedDataModel.personalDetails.date.toLocaleDateString();
+			if ($scope.personalDetails.dob !== undefined) {
+				$scope.personalDetails.dob = unifiedDataModel.personalDetails.dob.toLocaleDateString();
+			}
 		})
 	})
 	$scope.$on("diagnosisDataSubmit", function() {

@@ -1,10 +1,6 @@
 addPatient.controller("personalDetails", pdController);
 
 function pdController($scope, unifiedDataModel) {
-	$scope.$root.isEmpty = {
-		personalDetails: {},
-		diagnosisDetails: {}
-	};
 	$scope.$root.isEmpty.personalDetails = {
 		date: true,
 		firstName: true,
@@ -57,11 +53,64 @@ pdController.prototype.submit = function($scope, unifiedDataModel, $rootScope) {
 	$rootScope.$broadcast("personalDataSubmit")
 };
 
+addPatient.directive("validate", function() {
+	return {
+		link: function(scope, elem, attrs) {
+			elem.on("input", function() {
+				if (attrs.validatetype === "length") {
+					var maxLength = parseInt(attrs.validatemax);
+					if (elem.val().length > maxLength) {
+						elem.val(elem.val().slice(0,maxLength));
+						scope.model[attrs.ngModel.split('.')[1]] = parseInt(elem.val());
+						//scope[attrs.ngmodel] = elem.val();
+					}	
+				} else if (attrs.validatetype === "sex") {
+					var value = elem.val().toLowerCase();
+					if (value[0] === 'm' && value !== "mal") {
+						elem.val("Male");
+					} else if (value[0] === 'f' && value !== "femal") {
+						elem.val("Female");
+					} else if (value === "mal" || value === "femal") {
+						elem.val("");
+					} else {
+						elem.val("");
+					}
+					scope.model.sex = elem.val();
+				} else if (attrs.validatetype === "nonumber") {
+					var value = elem.val();
+					var length = elem.val().length
+					if (value.match(/^[a-zA-Z ]+$/) === null) {
+						elem.val(elem.val().slice(0, length-1))
+					}
+					scope.model[attrs.ngModel.split('.')[1]] = elem.val();
+				}
+			});
+		}
+	}
+});
+
+addPatient.directive("calculateage", function() {
+	return {
+		link: function (scope, elem, attrs) {
+			elem.on("change", function () {
+				if (scope.model.dob !== undefined) {
+					var today = new Date();
+					var todayYear = today.getFullYear()
+					scope.model.age = todayYear - scope.model.dob.getFullYear();
+					scope.$apply();
+				}
+			})
+		}
+	}
+})
+
 addPatient.directive("submitpdbutton", function(unifiedDataModel, $rootScope) {
 	return {
 		link: function(scope, elem, attrs) {
 			elem.bind("click", function() {
-				var validationResult = scope.pd.validateData(scope);
+				//var validationResult = scope.pd.validateData(scope);
+				validationResult = {validationPass: true}
+				console.warn("Data Validation Bypassed") 
 				if (validationResult && validationResult.validationPass === true) {
 					scope.pd.submit(scope, unifiedDataModel, $rootScope)
 				} else {

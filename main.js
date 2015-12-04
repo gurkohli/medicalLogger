@@ -1,4 +1,4 @@
-var addPatient = angular.module('addPatient', []);
+var addPatient = angular.module('addPatient', ['ngAnimate']);
 
 addPatient.factory('unifiedDataModel', function() {
 	var unifiedDataModel = {};
@@ -7,8 +7,18 @@ addPatient.factory('unifiedDataModel', function() {
 		count: 0,
 		diagnoses: []
 	};
+	unifiedDataModel.patientUID = "UID123456_TEST"
+	console.info("Patient UID Not Wired Yet!")
 	return unifiedDataModel;
 });
+
+addPatient.controller("rootController", function($scope, unifiedDataModel) {
+	$scope.$root.isEmpty = {
+		personalDetails: {},
+		diagnosisDetails: {}
+	};
+	$scope.$root.patientUID = angular.copy(unifiedDataModel.patientUID)
+})
 
 addPatient.directive("submitnewdata", function() {
 	return {
@@ -18,4 +28,20 @@ addPatient.directive("submitnewdata", function() {
 			});
 		}
 	}
+});
+
+addPatient.animation(".animate", function() {
+	return {
+		enter: function(element, done) {
+			element.css('display','none')
+			element.slideDown(400, function() {
+				done();
+			});
+		},
+		leave: function(element, done) {
+			element.slideUp(100, function() {
+				done();
+			});
+		}
+	};
 });
