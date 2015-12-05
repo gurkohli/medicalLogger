@@ -1,6 +1,9 @@
 <html>
 	<head>
+
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="/index.css">
+
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 		<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
 		<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.js"></script>
@@ -11,9 +14,9 @@
 	</head>
 	<body ng-app="addPatient" class="ng-scope" ng-controller = "rootController">
 		<div id = "main_content">
-			<div id = "personalDetails_main" ng-class="{opaque: !isPDActive}" class = "border_main_panel" ng-controller = "personalDetails as pd">
+			<div id = "personalDetails_main" ng-class="{opaque: !isPDActive, show: isPDActive}" class = "border_main_panel animate" ng-controller = "personalDetails as pd">
 				<label id = "personalDetails_label" class = "header_label">Personal Details: </label>
-				<div id = "personalDetails_form" ng-if="isPDActive" class ="container animate">
+				<div id = "personalDetails_form" ng-hide="!isPDActive" class ="sectioncontainer">
 					<span>
 						<label>Date: </label><input type="date" ng-class="{required: !isEmpty.personalDetails.date}" ng-model="model.date"/>
 						<label class="leftmargin">Patient ID: </label><input type="text" ng-model="patientUID" disabled/>
@@ -47,39 +50,39 @@
 					<button id="personalDetails_submit" class="submit_button" submitpdbutton>Submit</button>
 				</div>
 			</div>
-			<div id = "diagnosisDetails_main" ng-class="{opaque: !isDDActive}" class="border_main_panel" ng-controller = "diagnosisDetails as dd">
+			<div id = "diagnosisDetails_main" ng-class="{opaque: !isDDActive, show: isDDActive}" class="border_main_panel animate" ng-controller = "diagnosisDetails as dd">
 				<label id = "diagnosisDetails_label" class = "header_label">Diagnosis Details: </label>
-				<div id = "diagnosisDetails_form" ng-if="isDDActive" class="container animate">
-					<span>
+				<div id = "diagnosisDetails_form" ng-hide="!isDDActive" class="sectioncontainer">
+					<div class = "diagnosisfield">
 						<label>Primary Diagnosis: </label><input type="text" placeholder="Primary Diagnosis" ng-class="{required: !isEmpty.diagnosisDetails.primaryDiagnosis}" ng-model="model.primaryDiagnosis"/>
-					</span>
-					<span>
+					</div>
+					<div class = "diagnosisfield">
 						<label>Symptoms: </label><textarea placeholder="Symptoms" ng-model="model.symptoms"></textarea>
-					</span>
-					<span>
+					</div>
+					<div class = "diagnosisfield">
 						<label>Examinations: </label><textarea placeholder="Examinations" ng-model="model.examinations"></textarea>
-					</span>
-					<span>
+					</div>
+					<div class = "diagnosisfield">
 						<label>Applied Procedures: </label><textarea placeholder="Applied Procedures" ng-model="model.appliedProcedures"></textarea>
-					</span>
-					<span>
+					</div>
+					<div class = "diagnosisfield">
 						<label>Medications Assigned: </label>
-						<div id="medicationsFieldContainer" count={{model.medicationCount}}>
+						<div id="medicationsFieldsectioncontainer" count={{model.medicationCount}}>
 							<medicationsfield class="ng-scope" ng-repeat="medication in model.medications"></medicationsfield>
 						</div>
-					</span>
-					<span>
+					</div>
+					<div class = "diagnosisfield">
 						<label>Follow up date: </label><input type="date" ng-model="model.followUpDate"/>
-					</span>
+					</div>
 					<button id="diagnosisDetails_submit" class="submit_button" submitddbutton>Submit</button>
 				</div>
 			</div>
-			<div id = "summary_main" ng-class="{opaque: !isSummaryActive}" class="border_main_panel" ng-controller = "summary">
+			<div id = "summary_main" ng-class="{opaque: !isSummaryActive, show: isSummaryActive}" class="border_main_panel animate" ng-controller = "summary">
 				<label class ="header_label">Summary: </label>
-				<div id = "summary_body" ng-if="isSummaryActive" class="animate">
+				<div id = "summary_body" ng-hide="!isSummaryActive" class="animate">
 					<div id ="summary_body_personalDetails">
 						<label class ="header_label">Personal Details: </label>
-						<div class="container">
+						<div class="sectioncontainer">
 							<span>
 								<label><b>Date:</b> {{personalDetails.date}}</label>
 								<label><b>Patient UID:</b><font color="#4d4d4d"> {{patientUID}}</font></label></span>
@@ -154,7 +157,7 @@
 									<td colspan='15' class="summary_table_detail_cell">{{diagnosis.followUpDate.toLocaleDateString()}}</td>
 								</tr>
 								<tr class = "summary_table_rows">
-									<th colspan='20' class =""><button id="addDiagnosis" class ="summary_table_add_button dashed_gray_button" adddiagnosis>Click here to add another diagnosis</button></th>
+									<td colspan='20' class =""><button id="addDiagnosis" class ="summary_table_add_button dashed_gray_button" adddiagnosis>Click here to add another diagnosis</button></td>
 								</tr>
 							</table>
 						</div>

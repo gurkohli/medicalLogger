@@ -33,15 +33,15 @@ addPatient.directive("submitnewdata", function() {
 addPatient.animation(".animate", function() {
 	return {
 		enter: function(element, done) {
-			element.css('display','none')
-			element.slideDown(400, function() {
-				done();
-			});
+			//element.css('display','none')
+			//element.slideDown(400, function() {
+			//	done();
+			//});
 		},
 		leave: function(element, done) {
-			element.slideUp(100, function() {
-				done();
-			});
+			//element.slideUp(100, function() {
+			//	done();
+			//});
 		}
 	};
 });

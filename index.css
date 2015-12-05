@@ -1,14 +1,86 @@
 body {
-	width: 95%;
+	margin: 10px;
 }
 button:focus {
 	outline: none;
-}
+}/*
 div {
 	display: inline-block;
 	width: 100%;
+}*/
+/* Animation */
+.animate {
+	transform-origin:top;
+}
+/*
+.animate.opaque {
+  -webkit-animation:0.7s hide;
+  animation:0.7s hide;
 }
 
+@keyframes hide {
+  0% {
+  	transform:translateY(0%);
+    /*transform: scaleY(1);
+  }
+  30% {
+  	transform:translateY(110%);
+    /*transform: scaleY(1.02);
+  }
+  100% {
+  	transform:translateY(0%);
+    /*transform: scaleY(0.5);
+  }
+}
+
+@-webkit-keyframes hide {
+  0% {
+    opacity:1;
+    transform: scaleY(1);
+  }
+  30% {
+    transform: scaleY(1.02);
+  }
+  100% { 
+    opacity:0;
+    transform: scaleY(0.5);
+  }
+}*/
+
+
+.animate.show {
+  -webkit-animation:0.7s show;
+  animation:0.7s show;
+}
+
+@keyframes show {
+  0% {
+    transform: scaleY(0.5);
+    /*transform:translateY(0%);*/
+  }
+  90% {
+    transform: scaleY(1.02);
+    /*transform:translateY(10%);*/
+  }
+  100% { 
+    transform: scaleY(1);
+    /*transform:translateY(0%);*/
+  }
+}
+/*
+@-webkit-keyframes show {
+  0% {
+    opacity:0;
+    transform: scaleY(0.5);
+  }
+  70% {
+    transform: scaleY(1.02);
+  }
+  100% { 
+    opacity:1;
+    transform: scale(1);
+  }
+}*/
 /*.animate.ng-enter, .animate.ng-leave {
   transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
 }
@@ -24,7 +96,10 @@ div {
 }*/
 
 .nopadding {
-	padding: 0px !important;
+	padding-top: 0px !important;
+    padding-bottom: 6px !important;
+    padding-right: 0px !important;
+    padding-left: 0px !important;
 }
 
 .dashed_gray_button {
@@ -37,13 +112,6 @@ div {
     border-style: dashed;
 }
 
-.summary_table {
-	table-layout: fixed;
-	width: 100%;
-	text-align: left;
-	border-collapse: collapse;
-}
-
 .clickable {
 	cursor: pointer;
 }
@@ -52,11 +120,10 @@ div {
 	float: right;
 }
 
-.container {
+.sectioncontainer {
 	border: solid #cccccc thin;
     background-color: #fafafa;
-    padding-top: 2px;
-    padding-bottom: 2px;
+    padding: 5px 0px 5px 0px;
 }
 
 .opaque {
@@ -65,6 +132,14 @@ div {
 
 input.required, input.ng-invalid {
 	background-color: #ffff80
+}
+
+.summary_table {
+	table-layout: fixed;
+	width: 100%;
+	text-align: left;
+	border-collapse: collapse;
+	font-size: 14px;
 }
 
 .summary_table_header {
@@ -91,6 +166,16 @@ input.required, input.ng-invalid {
     color: #808080;
 }
 
+.summary_table_main_cell {
+	max-width: 100%;
+	padding: 2.5px;
+}
+
+.summary_table_detail_cell {
+	padding: 5px;
+}
+
+
 .summary_edit_button {
 	text-align: right;
     padding-top: 5px;
@@ -102,15 +187,6 @@ input.required, input.ng-invalid {
 
 .hidden {
 	display: none !important;
-}
-
-.summary_table_main_cell {
-	max-width: 100%;
-	padding: 2.5px;
-}
-
-.summary_table_detail_cell {
-	padding: 5px;
 }
 
 .border_light {
@@ -136,7 +212,15 @@ input.required, input.ng-invalid {
 .header_label {
 	font-size: 20px;
 	padding: 5px !important;
-	display: inline-block;
+}
+
+label {
+	font-weight: normal !important;
+	padding: 2px 5px 2px 5px;
+}
+
+#summary_body label {
+	width: inherit;
 }
 
 .submit_button {
@@ -170,14 +254,25 @@ input.required, input.ng-invalid {
 	display: inline-block;
 	padding: 10px;
 }
-
-#addDiagnosisPrompt span{
-	float: left;
-	clear: left;
-	width: 100%;
+span {
 	display: flex;
 	white-space: nowrap;
-	padding: 2px;
+	width: 100%;
+}
+
+#personalDetails_main span, #summary_body span {
+	width: calc(100% - 6px);
+	height: 32px;
+	padding: 3px 2px 3px 2px;
+}
+
+#diagnosisDetails_main span {
+	/*width: calc(100% - 6px);*/
+	padding: 2px 0px 2px 0px;
+}
+#diagnosisDetails_main .diagnosisfield {
+	width: calc(100% - 6px);
+	padding: 2px 0px 2px 0px;
 }
 
 #personalDetails_main, #summary_main {
@@ -186,35 +281,15 @@ input.required, input.ng-invalid {
 	width: 100%;
 }
 
-#personalDetails_main span, #summary_body span {
-	float: left;
-	clear: left;
-	width: calc(100% - 6px);
-	height: 25px;
-	display: flex;
-	white-space: nowrap;
-	padding: 3px 2px 3px 2px;
-}
-
 #personalDetails_main input {
 	width: 100%;
 	padding: 2px;
-}
-
-#personalDetails_main label, #summary_body label {
-	padding: 2px 5px 2px 5px;
 }
 
 #diagnosisDetails_main {
 	padding: 10px;
 	display: inline-block;
 	width: 100%;
-}
-
-#diagnosisDetails_main span {
-	float: left;
-	width: calc(100% - 6px);
-	padding: 2px 0px 2px 0px;
 }
 
 #diagnosisDetails_main textarea {
@@ -231,10 +306,6 @@ input.required, input.ng-invalid {
 	height: 25px;
 	padding: 2px;
 	margin: 5px;
-}
-
-#diagnosisDetails_main label {
-	padding: 2px 5px 2px 5px;
 }
 
 #diagnosisDetails_main .inline-fields {
@@ -255,8 +326,4 @@ input.required, input.ng-invalid {
 	height: 25px;
 	min-width: 25px;
 	max-width: 25px;
-}
-
-#summary_body label {
-	width: inherit;
 }
