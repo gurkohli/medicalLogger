@@ -1,4 +1,4 @@
-var addPatient = angular.module('addPatient', ['ngAnimate']);
+var addPatient = angular.module('addPatient', ['ngAnimate', 'ui.bootstrap']);
 
 addPatient.factory('unifiedDataModel', function() {
 	var unifiedDataModel = {};
@@ -13,6 +13,9 @@ addPatient.factory('unifiedDataModel', function() {
 });
 
 addPatient.controller("rootController", function($scope, unifiedDataModel) {
+	$scope.$root.isPDActive = true;
+	$scope.$root.isDDActive = false;
+	$scope.$root.isSummaryActive = false;
 	$scope.$root.isEmpty = {
 		personalDetails: {},
 		diagnosisDetails: {}

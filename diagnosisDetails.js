@@ -5,7 +5,7 @@ function ddController($scope) {
 	$scope.$root.isDDActive = false;
 
 	$scope.reset = function() {
-		$scope.model = {}
+		$scope.model = {};
 		$scope.model.medications = [];
 		$scope.model.medications[0] = {name: "", dose: ""}
 		$scope.model.medicationCount = 0;
