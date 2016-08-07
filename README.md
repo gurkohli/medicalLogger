@@ -1,9 +1,9 @@
 # Medical Patient Data Logger - Front end interface
 
-Medical Patient Data Logger is an AngularJS Web Application front end interface that can be used by software professionals working towards creating applications that log patient data.
+Medical Patient Data Logger is an AngularJS web application front end interface that can be used by software professionals working towards creating applications that log patient data.
 
-It provides a responsive and interactive user interface that lets a user input the patient's personal details and diagnosis details and views the data at the end in a summary layout. 
-The data is currently saved in a global variable called unifiedDataModel.
+It provides a responsive and interactive user interface that lets a user input the patient's personal details and diagnosis details and views the data at the end in a summary layout.
+The data is currently saved in a global variable called **unifiedDataModel** and outputs to console when the submit button is clicked.
 
 # Features
 	*AngularJS framework
