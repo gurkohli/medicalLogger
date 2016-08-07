@@ -23,11 +23,12 @@ addPatient.controller("rootController", function($scope, unifiedDataModel) {
 	$scope.$root.patientUID = angular.copy(unifiedDataModel.patientUID)
 })
 
-addPatient.directive("submitnewdata", function() {
+addPatient.directive("submitnewdata", function(unifiedDataModel) {
 	return {
 		link: function(scope, elem, attrs) {
 			elem.bind("click", function() {
-				console.info("Submit button not wired yet")
+				console.info("Data in variable unifiedDataModel")
+				console.log(unifiedDataModel)
 			});
 		}
 	}
