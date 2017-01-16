@@ -30,3 +30,14 @@ http-server ./
 ```
 
 4) Using a browser, open http://www.localhost:8080/
+
+## Steps for Mac OS
+1) Open terminal and start an HTTP Server using Python
+```sh
+cd <Directory_Containing_Files>
+python -m SimpleHTTPServer
+```
+
+# Disclaimer:
+Copyright ©20XX. Gur Kohli. All Rights Reserved.
+The Material may not be reproduced or distributed, in whole or in part, without prior written permission of Gur Kohli (the "Owner"). However, reproduction and distribution, in whole or in part, by non-profit, research or educational institutions for their own use is permitted if proper credit is given, with full citation, and copyright is acknowledged and this paragraph appear in all copies, modifications, and distributions. Any other reproduction or distribution, in whatever form and by whatever media, is expressly prohibited without the prior written consent of the Owner.
